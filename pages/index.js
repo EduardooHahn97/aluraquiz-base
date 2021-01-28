@@ -1,9 +1,12 @@
+import React, { useState } from 'react';
 import styled from 'styled-components'
 import db from '../db.json';
 import Widget from '../src/components/Widget'
 import Footer from '../src/components/Footer'
 import GitHubCorner from '../src/components/GitHubCorner'
 import QuizBackground from '../src/components/QuizBackground'
+import Head from 'next/head'
+import {useRouter} from 'next/router'
 
 /*const Title = styled.h1`
   font-size: 50px;
@@ -38,8 +41,14 @@ export const QuizContainer = styled.div`
 
 
 export default function Home() {
+  const router = useRouter();
+  const [name, setName] = React.useState('');
+
   return (
     <QuizBackground backgroundImage={db.bg}>
+      <Head>
+        <title>AluraQuiz - Eduardo</title>
+      </Head>
       <QuizContainer>
         
           <Widget>
@@ -47,7 +56,25 @@ export default function Home() {
               <h1>Quiz sobre o Eduardo </h1>
             </Widget.Header>
             <Widget.Content>
-              <p>teste teste</p>
+              <form onSubmit={ function (infodoEvento) {
+                infodoEvento.preventDefault();                
+                router.push(`/quiz?name=${name}`);
+                console.log('Fazendo submit');
+              }}
+              >
+                <input onChange={ function(infoEvento){
+                  console.log(infoEvento.target.value)
+                  //State
+                  //name = infoEvento.target.value;
+                  setName(infoEvento.target.value);
+
+                }
+
+                } placeholder="Seu nome"/>
+                <button type="submit" disabled={name.length === 0}>
+                  Jogar {name}
+                </button>
+              </form>
             </Widget.Content>
           </Widget>
           
@@ -55,12 +82,12 @@ export default function Home() {
             <Widget.Content>
               <h1>Quiz da galera </h1>
               <p>teste teste</p>
-            </Widget.Content>
+            </Widget.Content> 
           </Widget>
         <Footer>
         </Footer>
       </QuizContainer>
-      <GitHubCorner projectUrl='https://git.com.br'/>
+      <GitHubCorner projectUrl='https://github.com/EduardooHahn97'/>
     </QuizBackground>
 
 
