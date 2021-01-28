@@ -7,6 +7,9 @@ import GitHubCorner from '../src/components/GitHubCorner'
 import QuizBackground from '../src/components/QuizBackground'
 import Head from 'next/head'
 import {useRouter} from 'next/router'
+import Input from '../src/components/Input'
+import Button from '../src/components/Button'
+import QuizContainer from '../src/components/QuizContainer'
 
 /*const Title = styled.h1`
   font-size: 50px;
@@ -28,7 +31,7 @@ import {useRouter} from 'next/router'
   background-position: center;
 `;*/
 
-export const QuizContainer = styled.div`
+/*export const QuizContainer = styled.div`
   width: 100%;
   max-width: 350px;
   padding-top: 45px;
@@ -37,7 +40,7 @@ export const QuizContainer = styled.div`
     margin: auto;
     padding: 15px;
   }
-`;
+`;*/
 
 
 export default function Home() {
@@ -62,18 +65,17 @@ export default function Home() {
                 console.log('Fazendo submit');
               }}
               >
-                <input onChange={ function(infoEvento){
-                  console.log(infoEvento.target.value)
+                <Input 
+                  name="nomeUsuario"
+                  onChange={(infoEvento) => setName(infoEvento.target.value)}
                   //State
                   //name = infoEvento.target.value;
-                  setName(infoEvento.target.value);
-
-                }
-
-                } placeholder="Seu nome"/>
-                <button type="submit" disabled={name.length === 0}>
-                  Jogar {name}
-                </button>
+                  placeholder="Seu nome"
+                  value={name}
+                />
+                <Button type="submit" disabled={name.length === 0}>
+                  {`Jogar ${name}`}
+                </Button>
               </form>
             </Widget.Content>
           </Widget>
